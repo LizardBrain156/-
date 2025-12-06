@@ -263,60 +263,114 @@ body {
   box-shadow: 0 0 6px rgba(108, 99, 255, 0.6);
 }
 
-/* === MOBILE === */
+/* ========== Мобильная адаптация (вставить в конец style.css) ========== */
 @media (max-width: 768px) {
 
-  body {
-    padding: 10px;
-    align-items: stretch;
-  }
-
+  /* Общая колонка: персонаж, затем панели.
+     Убираем боковую верт. прокрутку у левой панели — основной скролл страницы.
+  */
   .game {
     flex-direction: column;
-    align-items: center;
-    gap: 15px;
+    align-items: stretch;
+    gap: 12px;
+    padding: 12px;
   }
 
-  /* персонаж */
-  .character {
-    width: 90vw;
-    max-width: 320px;
-    height: auto;
-  }
-
-  /* левая панель */
+  /* Левая панель становится полноширинной блоком над персонажем/панелью управления.
+     Убираем внутренний max-height/overflow, чтобы не было вложенного скролла,
+     и чтобы элементы ассетов оставались кликабельными.
+  */
   .left-panel {
     width: 100%;
     max-width: none;
     max-height: none;
-    order: 2;
+    overflow: visible;
+    padding: 12px;
+    box-sizing: border-box;
   }
 
-  /* правая панель (кнопки) */
+  /* Экран категорий — тоже растягиваем */
+  .category-screen {
+    width: 100%;
+  }
+
+  /* Персонаж теперь участник нормального потока (не перекрывает другие блоки).
+     Позиция relative — абсолютные слои внутри персонажа остаются, но
+     .character займёт место в документе и не будет "лечь" поверх ассетов.
+  */
+  .character {
+    position: relative;
+    width: 100%;
+    max-width: 420px;     /* ограничение ширины экрана для читаемости */
+    margin: 0 auto;       /* центрируем */
+    height: auto;         /* позволяем высоте подстраиваться, если нужно */
+    padding-top: 65%;     /* сохраняет соотношение; если не нравится — можно убрать */
+  }
+
+  /* корректируем абсолютные картинки внутри .character — 100% по контейнеру */
+  .character img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: none;
+  }
+
+  /* Правая панель — теперь под остальным, кнопки широкие */
   .right-panel {
     width: 100%;
-    order: 3;
+    max-width: none;
+    padding: 12px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
+  .right-panel .save-btn {
+    flex: 1 1 auto;
+    min-width: 120px;
+    padding: 10px;
+  }
+
+  /* Уменьшаем иконки ассетов, чтобы помещались; делаем сетку более гибкой */
   .screen-content .icon-grid,
   .screen-content .color-grid {
-    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+    gap: 8px;
   }
 
-  .screen-content img {
-    width: 60px;
-    height: 60px;
+  .screen-content img,
+  .icon-grid img,
+  .color-grid img {
+    width: 48px;
+    height: 48px;
   }
 
-    .character {
-    position: relative;
-    z-index: 1;
+  /* Немного отступов внутри блоков */
+  .screen-content {
+    padding-bottom: 8px;
   }
 
-  .right-panel,
-  .left-panel {
-    position: relative;
-    z-index: 2;
-  }
+  /* Гарантия порядка: персонаж над ассетами в визуальном порядке (если нужно) */
+  .character { order: 1; }
+  .left-panel { order: 2; }
+  .right-panel { order: 3; }
 
+  /* Защита кликов: если всё же будут точки, где персонаж может физически перекрывать —
+     убедимся, что элементы управления находятся выше визуально (restore if needed).
+     (обычно не требуется, но оставлю закомментированной подсказку)
+  */
+  /* .character { pointer-events: none; } */
+  /* .left-panel, .right-panel { pointer-events: auto; } */
+
+  /* Подсветка выбранного цвета — сохранится и на мобиле */
+  .color-grid img.selected {
+    outline: 3px solid #6c63ff;
+    outline-offset: 3px;
+    border-radius: 8px;
+    box-shadow: 0 0 6px rgba(108, 99, 255, 0.6);
+  }
 }
