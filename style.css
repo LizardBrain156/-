@@ -291,7 +291,7 @@ body {
     order: 1;
     width: 90vw;
     max-width: 360px;
-    height: calc(360px * 1.5); /* фикс для PNG */
+    aspect-ratio: 1 / 1.5; /* ширина/высота */
     flex-shrink: 0;
   }
 
