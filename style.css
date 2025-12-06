@@ -117,7 +117,8 @@ body {
 .character {
   position: relative;
   width: 320px;
-  height: 520px;
+  height: 480px;
+  aspect-ratio: 2 / 3;
   background: #fafafa;
   border-radius: 16px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -267,64 +268,47 @@ body {
   aspect-ratio: 2 / 3;
 }
 
-/* ========== Мобильная адаптация (вставить в конец style.css) ========== */
+/* ========== Мобильная адаптация ========== */
 @media (max-width: 768px) {
 
-  /* Общая колонка: персонаж, затем панели.
-     Убираем боковую верт. прокрутку у левой панели — основной скролл страницы.
-  */
+  body {
+    padding: 10px;
+  }
+
   .game {
     flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-    padding: 12px;
+    align-items: center;
+    gap: 15px;
   }
 
-  /* Левая панель становится полноширинной блоком над персонажем/панелью управления.
-     Убираем внутренний max-height/overflow, чтобы не было вложенного скролла,
-     и чтобы элементы ассетов оставались кликабельными.
-  */
-  .left-panel {
+  .left-panel,
+  .right-panel {
     width: 100%;
-    max-width: none;
-    max-height: none;
-    overflow: visible;
-    padding: 12px;
-    box-sizing: border-box;
+    max-width: 420px;
   }
 
-  /* Экран категорий — тоже растягиваем */
-  .category-screen {
-    width: 100%;
+  .character {
+    order: 1;
+    width: 90vw;
+    max-width: 360px;
+    height: calc(360px * 1.5); /* фикс для PNG */
+    flex-shrink: 0;
   }
 
-  /* Персонаж теперь участник нормального потока (не перекрывает другие блоки).
-     Позиция relative — абсолютные слои внутри персонажа остаются, но
-     .character займёт место в документе и не будет "лечь" поверх ассетов.
-  */
-.character {
-  position: relative;
-  width: 100%;
-  max-width: 360px;   /* <-- было 420, делаем компактнее, но выше */
-  aspect-ratio: 2 / 3; /* ✅ ПРАВИЛЬНОЕ соотношение персонажа */
-  margin: 0 auto;
-}
-
-  /* корректируем абсолютные картинки внутри .character — 100% по контейнеру */
+  /* картинки внутри персонажа */
   .character img {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: contain;
     display: none;
   }
 
-  /* Правая панель — теперь под остальным, кнопки широкие */
+  /* панели */
+  .left-panel { order: 2; }
   .right-panel {
-    width: 100%;
-    max-width: none;
+    order: 3;
     padding: 12px;
     display: flex;
     gap: 8px;
@@ -338,47 +322,28 @@ body {
     padding: 10px;
   }
 
-  /* Уменьшаем иконки ассетов, чтобы помещались; делаем сетку более гибкой */
+  /* ассеты */
   .screen-content .icon-grid,
   .screen-content .color-grid {
     grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
     gap: 8px;
   }
 
-  .screen-content img,
   .icon-grid img,
   .color-grid img {
     width: 48px;
     height: 48px;
   }
 
-  /* Немного отступов внутри блоков */
   .screen-content {
     padding-bottom: 8px;
   }
 
-  /* Гарантия порядка: персонаж над ассетами в визуальном порядке (если нужно) */
-  .character { order: 1; }
-  .left-panel { order: 2; }
-  .right-panel { order: 3; }
-
-  /* Защита кликов: если всё же будут точки, где персонаж может физически перекрывать —
-     убедимся, что элементы управления находятся выше визуально (restore if needed).
-     (обычно не требуется, но оставлю закомментированной подсказку)
-  */
-  /* .character { pointer-events: none; } */
-  /* .left-panel, .right-panel { pointer-events: auto; } */
-
-  /* Подсветка выбранного цвета — сохранится и на мобиле */
+  /* подсветка цвета */
   .color-grid img.selected {
     outline: 3px solid #6c63ff;
     outline-offset: 3px;
     border-radius: 8px;
     box-shadow: 0 0 6px rgba(108, 99, 255, 0.6);
-  }
-
-    .character {
-    max-width: 360px;
-    width: 100%;
   }
 }
