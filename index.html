@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Игра-одевалка</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="game">
+
+    <!-- === Левая панель с категориями === -->
+    <div class="wardrobe left-panel">
+
+      <!-- Главное меню категорий -->
+      <div class="categories-menu">
+        <h2>Категории</h2>
+
+        <button class="category-btn" onclick="showCategory('cosmetics')">
+          <img src="assets/icons/cosmetics_icon.png" alt="" class="category-icon">
+          Косметичка
+        </button>
+
+        <button class="category-btn" onclick="showCategory('hairstyle')">
+          <img src="assets/icons/hairstyle_icon.png" alt="" class="category-icon">
+          Причёска
+        </button>
+
+        <button class="category-btn" onclick="showCategory('wardrobe')">
+          <img src="assets/icons/wardrobe_icon.png" alt="" class="category-icon">
+          Гардероб
+        </button>
+      </div>
+
+      <!-- Контейнер подэкрана -->
+      <div class="category-screen" id="category-screen">
+        <button class="back-btn" onclick="showMainCategories()">← Назад</button>
+
+        <!-- Косметичка -->
+        <div class="cosmetics-screen screen-content">
+          <h3>🟤 Цвет кожи</h3>
+          <div class="icon-grid">
+            <img src="assets/icons/skin/skin_light_icon.png" alt="Светлая кожа" onclick="setSkin('light')">
+            <img src="assets/icons/skin/skin_white_icon.png" alt="Белая кожа" onclick="setSkin('white')">
+            <img src="assets/icons/skin/skin_yellow_icon.png" alt="Жёлтая кожа" onclick="setSkin('yellow')">
+            <img src="assets/icons/skin/skin_dark_icon.png" alt="Тёмная кожа" onclick="setSkin('dark')">
+            <img src="assets/icons/skin/skin_tanned_icon.png" alt="Смуглая кожа" onclick="setSkin('tanned')">
+            <img src="assets/icons/skin/skin_starry_icon.png" alt="Звёздная кожа" onclick="setSkin('starry')">
+          </div>
+
+          <h3>👀 Цвет глаз</h3>
+          <div class="icon-grid">
+            <img src="assets/icons/eyes/eyes_blue_icon.png" alt="Голубые" onclick="setEyes('blue')">
+            <img src="assets/icons/eyes/eyes_green_icon.png" alt="Зелёные" onclick="setEyes('green')">
+            <img src="assets/icons/eyes/eyes_brown_icon.png" alt="Карие" onclick="setEyes('brown')">
+            <img src="assets/icons/eyes/eyes_black_icon.png" alt="Чёрные" onclick="setEyes('black')">
+            <img src="assets/icons/eyes/eyes_grey_icon.png" alt="Серые" onclick="setEyes('grey')">
+            <img src="assets/icons/eyes/eyes_darkblue_icon.png" alt="Синие" onclick="setEyes('darkblue')">
+            <img src="assets/icons/eyes/eyes_red_icon.png" alt="Красные" onclick="setEyes('red')">
+            <img src="assets/icons/eyes/eyes_amber_icon.png" alt="Янтарные" onclick="setEyes('amber')">
+            <img src="assets/icons/eyes/eyes_wild_icon.png" alt="Хищные" onclick="setEyes('wild')">
+            <img src="assets/icons/eyes/eyes_cosmic_icon.png" alt="Космические" onclick="setEyes('cosmic')">
+            <img src="assets/icons/eyes/eyes_pink_icon.png" alt="Розовые" onclick="setEyes('pink')">
+            <img src="assets/icons/eyes/eyes_empty_icon.png" alt="Пустые" onclick="setEyes('empty')">
+          </div>
+
+          <h3>💋 Цвет губ</h3>
+          <div class="icon-grid">
+            <img src="assets/icons/lips/lips_nude_icon.png" alt="Нюд" onclick="setLips('nude')">
+            <img src="assets/icons/lips/lips_red_icon.png" alt="Красные" onclick="setLips('red')">
+            <img src="assets/icons/lips/lips_pink_icon.png" alt="Розовые" onclick="setLips('pink')">
+            <img src="assets/icons/lips/lips_orange_icon.png" alt="Оранжевые" onclick="setLips('orange')">
+            <img src="assets/icons/lips/lips_amber_icon.png" alt="Янтарные" onclick="setLips('amber')">
+            <img src="assets/icons/lips/lips_lilac_icon.png" alt="Сиреневые" onclick="setLips('lilac')">
+            <img src="assets/icons/lips/lips_black_icon.png" alt="Чёрные" onclick="setLips('black')">
+            <img src="assets/icons/lips/lips_peachy_icon.png" alt="Персиковые" onclick="setLips('peachy')">
+            <img src="assets/icons/lips/lips_magenta_icon.png" alt="Малиновые" onclick="setLips('magenta')">
+            <img src="assets/icons/lips/lips_golden_icon.png" alt="Золотистые" onclick="setLips('golden')">
+            <img src="assets/icons/lips/lips_brown_icon.png" alt="Коричневые" onclick="setLips('brown')">
+            <img src="assets/icons/lips/lips_blue_icon.png" alt="Синие" onclick="setLips('blue')">
+            <img src="assets/icons/lips/lips_violet_icon.png" alt="Фиолетовые" onclick="setLips('violet')">
+            <img src="assets/icons/lips/lips_wine_icon.png" alt="Алые" onclick="setLips('wine')">
+            <img src="assets/icons/lips/lips_white_icon.png" alt="Алые" onclick="setLips('white')">
+          </div>
+
+          <!-- Ресницы (только здесь) -->
+          <h3> 𓁿 Ресницы</h3>
+          <div class="icon-grid" id="lashes-icons">
+            <button class="small-icon-btn" onclick="addLashes()">
+              <img src="assets/icons/lashes_add_icon.png" alt="Добавить ресницы">
+            </button>
+            <button class="small-icon-btn" onclick="removeLashes()">
+              <img src="assets/icons/lashes_remove_icon.png" alt="Убрать ресницы">
+            </button>
+          </div>
+        </div>
+
+        <!-- Причёска -->
+        <div class="hairstyle-screen screen-content">
+          <h3>💇‍♀️ Форма причёски</h3>
+          <div class="icon-grid">
+            <img src="assets/icons/hair1_icon.png" alt="Причёска 1" onclick="selectHairStyle('hair1')">
+            <img src="assets/icons/hair2_icon.png" alt="Причёска 2" onclick="selectHairStyle('hair2')">
+            <img src="assets/icons/hair3_icon.png" alt="Причёска 3" onclick="selectHairStyle('hair3')">
+            <img src="assets/icons/hair4_icon.png" alt="Причёска 4" onclick="selectHairStyle('hair4')">
+            <img src="assets/icons/none_hair_icon.png" alt="Без причёски" onclick="selectHairStyle('')">
+          </div>
+
+          <h3>🎨 Цвет волос</h3>
+          <div class="color-grid">
+            <img src="assets/icons/hair_color_blonde.png" class="color" data-color="blonde" onclick="setHairColor('blonde')">
+            <img src="assets/icons/hair_color_black.png" class="color" data-color="black" onclick="setHairColor('black')">
+            <img src="assets/icons/hair_color_brown.png" class="color" data-color="brown" onclick="setHairColor('brown')">
+            <img src="assets/icons/hair_color_darkbrown.png" class="color" data-color="darkbrown" onclick="setHairColor('darkbrown')">
+            <img src="assets/icons/hair_color_red.png" class="color" data-color="red" onclick="setHairColor('red')">
+            <img src="assets/icons/hair_color_white.png" class="color" data-color="white" onclick="setHairColor('white')">
+            <img src="assets/icons/hair_color_fair.png" class="color" data-color="fair" onclick="setHairColor('fair')">
+            <img src="assets/icons/hair_color_cherry.png" class="color" data-color="cherry" onclick="setHairColor('cherry')">
+            <img src="assets/icons/hair_color_blue.png" class="color" data-color="blue" onclick="setHairColor('blue')">
+            <img src="assets/icons/hair_color_crimson.png" class="color" data-color="crimson" onclick="setHairColor('crimson')">
+            <img src="assets/icons/hair_color_teal.png" class="color" data-color="teal" onclick="setHairColor('teal')">
+            <img src="assets/icons/hair_color_bluegradient.png" class="color" data-color="bluegradient" onclick="setHairColor('bluegradient')">
+            <img src="assets/icons/hair_color_purplegradient.png" class="color" data-color="purplegradient" onclick="setHairColor('purplegradient')">
+            <img src="assets/icons/hair_color_pink.png" class="color" data-color="pink" onclick="setHairColor('pink')">
+          </div>
+
+          <h3>🌸 Украшения</h3>
+          <div class="icon-grid">
+            <img src="assets/icons/flower1_icon.png" alt="Цветок1" onclick="setHairAccessory('assets/hair/flower1.png')">
+            <img src="assets/icons/flower2_icon.png" alt="Цветок2" onclick="setHairAccessory('assets/hair/flower2.png')">
+            <img src="assets/icons/flower3_icon.png" alt="Цветок3" onclick="setHairAccessory('assets/hair/flower3.png')">
+            <img src="assets/icons/flower4_icon.png" alt="Цветок4" onclick="setHairAccessory('assets/hair/flower4.png')">
+            <img src="assets/icons/flower5_icon.png" alt="Цветок5" onclick="setHairAccessory('assets/hair/flower5.png')">
+            <img src="assets/icons/flower6_icon.png" alt="Цветок6" onclick="setHairAccessory('assets/hair/flower6.png')">
+            <img src="assets/icons/flower7_icon.png" alt="Цветок7" onclick="setHairAccessory('assets/hair/flower7.png')">
+            <img src="assets/icons/flower8_icon.png" alt="Цветок8" onclick="setHairAccessory('assets/hair/flower8.png')">
+            <img src="assets/icons/flower9_icon.png" alt="Цветок9" onclick="setHairAccessory('assets/hair/flower9.png')">
+            <img src="assets/icons/flower10_icon.png" alt="Цветок10" onclick="setHairAccessory('assets/hair/flower10.png')">
+            <img src="assets/icons/flower11_icon.png" alt="Цветок11" onclick="setHairAccessory('assets/hair/flower11.png')">
+            <img src="assets/icons/flower12_icon.png" alt="Цветок12" onclick="setHairAccessory('assets/hair/flower12.png')">
+            <img src="assets/icons/flower13_icon.png" alt="Цветок13" onclick="setHairAccessory('assets/hair/flower13.png')">
+            <img src="assets/icons/flower14_icon.png" alt="Цветок14" onclick="setHairAccessory('assets/hair/flower14.png')">
+            <img src="assets/icons/flower15_icon.png" alt="Цветок15" onclick="setHairAccessory('assets/hair/flower15.png')">
+            <img src="assets/icons/blue_headband_icon.png" alt="Голубой ободок" onclick="setHairAccessory('assets/hair/blue_headband.png')">
+            <img src="assets/icons/green_headband_icon.png" alt="Зелёный ободок" onclick="setHairAccessory('assets/hair/green_headband.png')">
+            <img src="assets/icons/orange_headband_icon.png" alt="Оранжевый ободок" onclick="setHairAccessory('assets/hair/orange_headband.png')">
+            <img src="assets/icons/white_headband_icon.png" alt="Белый ободок" onclick="setHairAccessory('assets/hair/white_headband.png')">
+            <img src="assets/icons/black_headband_icon.png" alt="Чёрный ободок" onclick="setHairAccessory('assets/hair/black_headband.png')">
+            <img src="assets/icons/pink_headband_icon.png" alt="Розовый ободок" onclick="setHairAccessory('assets/hair/pink_headband.png')">
+            <img src="assets/icons/yellow_headband_icon.png" alt="Жёлтый ободок" onclick="setHairAccessory('assets/hair/yellow_headband.png')">
+            <img src="assets/icons/teal_headband_icon.png" alt="Бирюзовый ободок" onclick="setHairAccessory('assets/hair/teal_headband.png')">
+            <img src="assets/icons/violet_headband_icon.png" alt="Фиолетовый ободок" onclick="setHairAccessory('assets/hair/violet_headband.png')">
+            <img src="assets/icons/lilac_headband_icon.png" alt="Лиловый ободок" onclick="setHairAccessory('assets/hair/lilac_headband.png')">
+            <img src="assets/icons/red_headband_icon.png" alt="Красный ободок" onclick="setHairAccessory('assets/hair/red_headband.png')">
+            <img src="assets/icons/grey_headband_icon.png" alt="Серый ободок" onclick="setHairAccessory('assets/hair/grey_headband.png')">
+            <img src="assets/icons/darkblue_headband_icon.png" alt="Синий ободок" onclick="setHairAccessory('assets/hair/darkblue_headband.png')">
+            <img src="assets/icons/none_flower_icon.png" alt="Без украшения" onclick="setHairAccessory('')">
+          </div>
+        </div>
+
+        <!-- ==== ГАРДЕРОБ ==== -->
+        <div class="screen-content wardrobe-screen">
+
+          <h3>👗 Платья</h3>
+          <div class="icon-grid">
+            <img src="assets/icons/pink_dress_icon.png" onclick="changeDress('assets/clothes/dresses/pink_dress.png')">
+            <img src="assets/icons/blue_dress_icon.png" onclick="changeDress('assets/clothes/dresses/blue_dress.png')">
+            <img src="assets/icons/green_dress_icon.png" onclick="changeDress('assets/clothes/dresses/green_dress.png')">
+            <img src="assets/icons/yellow_dress_icon.png" onclick="changeDress('assets/clothes/dresses/yellow_dress.png')">
+            <img src="assets/icons/black_dress_icon.png" onclick="changeDress('assets/clothes/dresses/black_dress.png')">
+            <img src="assets/icons/white_dress_icon.png" onclick="changeDress('assets/clothes/dresses/white_dress.png')">
+            <img src="assets/icons/red_dress_icon.png" onclick="changeDress('assets/clothes/dresses/red_dress.png')">
+            <img src="assets/icons/orange_dress_icon.png" onclick="changeDress('assets/clothes/dresses/orange_dress.png')">
+            <img src="assets/icons/darkblue_dress_icon.png" onclick="changeDress('assets/clothes/dresses/darkblue_dress.png')">
+            <img src="assets/icons/violet_dress_icon.png" onclick="changeDress('assets/clothes/dresses/violet_dress.png')">
+            <img src="assets/icons/lilac_dress_icon.png" onclick="changeDress('assets/clothes/dresses/lilac_dress.png')">
+            <img src="assets/icons/grey_dress_icon.png" onclick="changeDress('assets/clothes/dresses/grey_dress.png')">
+            <img src="assets/icons/none_dress_icon.png" onclick="changeDress('')">
+          </div>
+
+          <h3>🧦 Колготки</h3>
+          <div class="icon-grid">
+            <img src="assets/icons/tights_black_icon.png" alt="Чёрные колготки" onclick="changeTights('assets/clothes/tights/black_tights.png')">
+            <img src="assets/icons/tights_white_icon.png" alt="Белые колготки" onclick="changeTights('assets/clothes/tights/white_tights.png')">
+            <img src="assets/icons/tights_grey_icon.png" alt="Серые колготки" onclick="changeTights('assets/clothes/tights/grey_tights.png')">
+            <img src="assets/icons/tights_red_icon.png" alt="Красные колготки" onclick="changeTights('assets/clothes/tights/red_tights.png')">
+            <img src="assets/icons/tights_orange_icon.png" alt="Оранжевые колготки" onclick="changeTights('assets/clothes/tights/orange_tights.png')">
+            <img src="assets/icons/tights_yellow_icon.png" alt="Жёлтые колготки" onclick="changeTights('assets/clothes/tights/yellow_tights.png')">
+            <img src="assets/icons/tights_green_icon.png" alt="Зелёные колготки" onclick="changeTights('assets/clothes/tights/green_tights.png')">
+            <img src="assets/icons/tights_blue_icon.png" alt="Голубые колготки" onclick="changeTights('assets/clothes/tights/blue_tights.png')">
+            <img src="assets/icons/tights_darkblue_icon.png" alt="Синие колготки" onclick="changeTights('assets/clothes/tights/darkblue_tights.png')">
+            <img src="assets/icons/tights_violet_icon.png" alt="Фиолетовые колготки" onclick="changeTights('assets/clothes/tights/violet_tights.png')">
+            <img src="assets/icons/tights_lilac_icon.png" alt="Лиловые колготки" onclick="changeTights('assets/clothes/tights/lilac_tights.png')">
+            <img src="assets/icons/tights_pink_icon.png" alt="Розовые колготки" onclick="changeTights('assets/clothes/tights/pink_tights.png')">
+            <img src="assets/icons/tights_none_icon.png" alt="Без колготок" onclick="changeTights('')">
+          </div>
+
+          <h3>🧥 Пальто</h3>
+          <div class="icon-grid">
+            <img src="assets/icons/red_coat_icon.png" onclick="changeCoat('assets/clothes/coats/red_coat.png')">
+            <img src="assets/icons/orange_coat_icon.png" onclick="changeCoat('assets/clothes/coats/orange_coat.png')">
+            <img src="assets/icons/yellow_coat_icon.png" onclick="changeCoat('assets/clothes/coats/yellow_coat.png')">
+            <img src="assets/icons/green_coat_icon.png" onclick="changeCoat('assets/clothes/coats/green_coat.png')">
+            <img src="assets/icons/blue_coat_icon.png" onclick="changeCoat('assets/clothes/coats/blue_coat.png')">
+            <img src="assets/icons/darkblue_coat_icon.png" onclick="changeCoat('assets/clothes/coats/darkblue_coat.png')">
+            <img src="assets/icons/violet_coat_icon.png" onclick="changeCoat('assets/clothes/coats/violet_coat.png')">
+            <img src="assets/icons/lilac_coat_icon.png" onclick="changeCoat('assets/clothes/coats/lilac_coat.png')">
+            <img src="assets/icons/black_coat_icon.png" onclick="changeCoat('assets/clothes/coats/black_coat.png')">
+            <img src="assets/icons/grey_coat_icon.png" onclick="changeCoat('assets/clothes/coats/grey_coat.png')">
+            <img src="assets/icons/white_coat_icon.png" onclick="changeCoat('assets/clothes/coats/white_coat.png')">
+            <img src="assets/icons/pink_coat_icon.png" onclick="changeCoat('assets/clothes/coats/pink_coat.png')">
+            <img src="assets/icons/none_coat_icon.png" onclick="changeCoat('')">
+          </div>
+
+          <h3>🧤 Перчатки</h3>
+          <div class="icon-grid">
+            <img src="assets/icons/pink_gloves_icon.png" onclick="changeGloves('assets/clothes/gloves/pink_gloves.png')">
+            <img src="assets/icons/blue_gloves_icon.png" onclick="changeGloves('assets/clothes/gloves/blue_gloves.png')">
+            <img src="assets/icons/green_gloves_icon.png" onclick="changeGloves('assets/clothes/gloves/green_gloves.png')">
+            <img src="assets/icons/yellow_gloves_icon.png" onclick="changeGloves('assets/clothes/gloves/yellow_gloves.png')">
+            <img src="assets/icons/black_gloves_icon.png" onclick="changeGloves('assets/clothes/gloves/black_gloves.png')">
+            <img src="assets/icons/white_gloves_icon.png" onclick="changeGloves('assets/clothes/gloves/white_gloves.png')">
+            <img src="assets/icons/red_gloves_icon.png" onclick="changeGloves('assets/clothes/gloves/red_gloves.png')">
+            <img src="assets/icons/orange_gloves_icon.png" onclick="changeGloves('assets/clothes/gloves/orange_gloves.png')">
+            <img src="assets/icons/darkblue_gloves_icon.png" onclick="changeGloves('assets/clothes/gloves/darkblue_gloves.png')">
+            <img src="assets/icons/violet_gloves_icon.png" onclick="changeGloves('assets/clothes/gloves/violet_gloves.png')">
+            <img src="assets/icons/lilac_gloves_icon.png" onclick="changeGloves('assets/clothes/gloves/lilac_gloves.png')">
+            <img src="assets/icons/grey_gloves_icon.png" onclick="changeGloves('assets/clothes/gloves/grey_gloves.png')">
+            <img src="assets/icons/none_gloves_icon.png" onclick="changeGloves('')">
+          </div>
+
+          <h3>👢 Сапоги</h3>
+          <div class="icon-grid">
+            <img src="assets/icons/red_boots_icon.png" onclick="changeBoots('assets/clothes/boots/red_boots.png')">
+            <img src="assets/icons/orange_boots_icon.png" onclick="changeBoots('assets/clothes/boots/orange_boots.png')">
+            <img src="assets/icons/yellow_boots_icon.png" onclick="changeBoots('assets/clothes/boots/yellow_boots.png')">
+            <img src="assets/icons/green_boots_icon.png" onclick="changeBoots('assets/clothes/boots/green_boots.png')">
+            <img src="assets/icons/blue_boots_icon.png" onclick="changeBoots('assets/clothes/boots/blue_boots.png')">
+            <img src="assets/icons/darkblue_boots_icon.png" onclick="changeBoots('assets/clothes/boots/darkblue_boots.png')">
+            <img src="assets/icons/violet_boots_icon.png" onclick="changeBoots('assets/clothes/boots/violet_boots.png')">
+            <img src="assets/icons/pink_boots_icon.png" onclick="changeBoots('assets/clothes/boots/pink_boots.png')">
+            <img src="assets/icons/black_boots_icon.png" onclick="changeBoots('assets/clothes/boots/black_boots.png')">
+            <img src="assets/icons/white_boots_icon.png" onclick="changeBoots('assets/clothes/boots/white_boots.png')">
+            <img src="assets/icons/grey_boots_icon.png" onclick="changeBoots('assets/clothes/boots/grey_boots.png')">
+            <img src="assets/icons/lilac_boots_icon.png" onclick="changeBoots('assets/clothes/boots/lilac_boots.png')">
+            <img src="assets/icons/none_boots_icon.png" onclick="changeBoots('')">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- === Персонаж === -->
+    <div class="character" id="character">
+      <img id="base" src="assets/base.png" alt="Персонаж">
+      <img id="skin" alt="Кожа" style="display:none">
+      <img id="tights" alt="Колготки" style="display:none">
+      <img id="hair-back" alt="Волосы сзади" style="display:none">
+
+      <img id="boots" alt="Сапоги" style="display:none">
+      <img id="dress" alt="Платье" style="display:none">
+      <img id="gloves" alt="Перчатки" style="display:none">
+      <img id="coat" alt="Пальто" style="display:none">
+
+      <img id="hair-front" alt="Волосы спереди" style="display:none">
+      <img id="hair-accessory" alt="Украшение для волос" style="display:none">
+      <img id="eyes" alt="Глаза" style="display:none">
+      <img id="lashes" alt="Ресницы" style="display:none">
+      <img id="lips" alt="Губы" style="display:none">
+    </div>
+
+    <!-- === Правая панель — Сохранение и Сброс === -->
+    <div class="wardrobe right-panel">
+      <h2>💾 Управление</h2>
+      <button class="save-btn" onclick="saveOutfit()">Сохранить</button>
+      <button class="save-btn" id="random-btn">🎲 Случайно</button>
+      <button class="save-btn" onclick="resetCharacter()">🔄 Сбросить</button>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

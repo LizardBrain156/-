@@ -1,0 +1,283 @@
+body {
+  background: #f4f4f4;
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.game {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* === Левая панель === */
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 280px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  max-height: 90vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.categories-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.category-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  background: #6c63ff;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.category-btn:hover {
+  background: #574fee;
+}
+
+.category-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.category-screen {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.back-btn {
+  width: 60px;
+  padding: 6px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  background: #888;
+  color: #fff;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background 0.3s ease;
+}
+
+.back-btn:hover {
+  background: #666;
+}
+
+.screen-content {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.screen-content .icon-grid,
+.screen-content .color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 55px);
+  gap: 8px;
+  justify-items: center;
+}
+
+.screen-content img {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.screen-content img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 4px rgba(0,0,0,0.2);
+}
+
+/* === Персонаж === */
+.character {
+  position: relative;
+  width: 320px;
+  height: 520px;
+  background: #fafafa;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+}
+
+.character img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: none; /* скрываем все слои по умолчанию, показываются через JS */
+}
+
+/* базовые слои тела и косметики */
+#base { z-index: 1; display: block; }  
+#skin { z-index: 2; }
+#hair-accessory { z-index: 10; }
+#eyes { z-index: 11; }    /* JS подстраивает, но оставляем минимум для гарантии */
+#lashes { z-index: 12; }
+#lips { z-index: 13; }
+
+#hair-back { position: absolute; top: 0; left: 0; width: 100%; display: none; z-index: 4; }
+#hair-front { position: absolute; top: 0; left: 0; width: 100%; display: none; z-index: 9; }
+#boots { position: absolute; top: 0; left: 0; width: 100%; display: none; z-index: 5; }
+#dress { position: absolute; top: 0; left: 0; width: 100%; display: none; z-index: 6; }
+#gloves { position: absolute; top: 0; left: 0; width: 100%; display: none; z-index: 7; }
+#coat { position: absolute; top: 0; left: 0; width: 100%; display: none; z-index: 8; }
+#tights { position: absolute; top: 0; left: 0; width: 100%; display: none; z-index: 3; }
+
+/* === Правая панель === */
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 200px;
+  max-height: 90vh;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.right-panel .save-btn {
+  width: 100%;
+  padding: 12px;
+  background: #6c63ff;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.right-panel .save-btn:hover {
+  background: #574fee;
+}
+
+/* === Ресницы === */
+.small-icon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: #f0f0f0;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  width: 60px;
+}
+
+.small-icon-btn img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.small-icon-btn span {
+  font-size: 12px;
+  text-align: center;
+}
+
+#lashes {
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: none;
+}
+
+#hair-accessory {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10; /* под глазами, над волосами */
+  display: none;
+}
+
+.character img:not([src=""]) {
+  display: block;
+}
+
+#tights {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 3; /* после кожи (2), перед волосами/обувью/одеждой */
+  display: none;
+}
+
+/* ==== Иконки ==== */
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.icon-grid img {
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.icon-grid img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+/* === Выделение выбранного цвета волос === */
+.color-grid img.selected {
+  outline: 3px solid #6c63ff;
+  outline-offset: 3px;
+  border-radius: 8px;
+  box-shadow: 0 0 6px rgba(108, 99, 255, 0.6);
+}
+
+/* === MOBILE === */
+@media (max-width: 768px) {
+  .game {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left-panel,
+  .right-panel {
+    width: 100%;
+    max-width: none;
+  }
+
+  .character {
+    width: 90vw;
+    height: auto;
+  }
+}
