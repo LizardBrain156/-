@@ -265,19 +265,47 @@ body {
 
 /* === MOBILE === */
 @media (max-width: 768px) {
+
+  body {
+    padding: 10px;
+    align-items: stretch;
+  }
+
   .game {
     flex-direction: column;
     align-items: center;
+    gap: 15px;
   }
 
-  .left-panel,
-  .right-panel {
-    width: 100%;
-    max-width: none;
-  }
-
+  /* персонаж */
   .character {
     width: 90vw;
+    max-width: 320px;
     height: auto;
   }
+
+  /* левая панель */
+  .left-panel {
+    width: 100%;
+    max-width: none;
+    max-height: none;
+    order: 2;
+  }
+
+  /* правая панель (кнопки) */
+  .right-panel {
+    width: 100%;
+    order: 3;
+  }
+
+  .screen-content .icon-grid,
+  .screen-content .color-grid {
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  }
+
+  .screen-content img {
+    width: 60px;
+    height: 60px;
+  }
+
 }
