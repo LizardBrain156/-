@@ -388,15 +388,29 @@ function saveOutfit() {
   const char = document.querySelector(".character");
   if (!char) return;
 
-  // Сохраняем исходные стили, чтобы вернуть после рендера
+  // Сохраняем исходные стили
   const origWidth = char.style.width;
   const origHeight = char.style.height;
   const origMaxWidth = char.style.maxWidth;
 
-  // Берём фактический размер блока на экране
+  // Берём текущий размер блока
   const rect = char.getBoundingClientRect();
-  char.style.width = rect.width + "px";
-  char.style.height = rect.height + "px";
+
+  // Рассчитываем масштаб, чтобы сохранить пропорции оригинального макета
+  const originalAspect = 360 / 540; // ширина/высота оригинала (замени, если у тебя другое)
+  let targetWidth = rect.width;
+  let targetHeight = rect.height;
+
+  // Подгоняем, чтобы сохранить оригинальные пропорции
+  const currentAspect = rect.width / rect.height;
+  if (currentAspect > originalAspect) {
+    targetWidth = rect.height * originalAspect;
+  } else {
+    targetHeight = rect.width / originalAspect;
+  }
+
+  char.style.width = targetWidth + "px";
+  char.style.height = targetHeight + "px";
   char.style.maxWidth = "none";
 
   html2canvas(char, { scale: 2, useCORS: true }).then(canvas => {
