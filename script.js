@@ -384,31 +384,28 @@ function randomizeCharacter() {
   updateHair(); // ← финальный вызов, гарантия согласованности слоёв
 }
 
-// === Сохранение с фиксированными пропорциями ===
+// === Сохранение с высоким качеством и корректными пропорциями ===
 function saveOutfit() {
   const char = document.querySelector(".character");
   if (!char) return;
 
-  const originalWidth = 360;  // исходная ширина для сохранения
-  const originalHeight = 540; // исходная высота для сохранения
+  // Получаем фактические размеры на экране
+  const rect = char.getBoundingClientRect();
+  const width = rect.width;
+  const height = rect.height;
 
-  // Сохраняем текущие размеры, чтобы вернуть после рендера
-  const prevWidth = char.style.width;
-  const prevHeight = char.style.height;
-
-  // Принудительно задаём размеры для html2canvas
-  char.style.width = originalWidth + "px";
-  char.style.height = originalHeight + "px";
-
-  html2canvas(char, { width: originalWidth, height: originalHeight, scale: 1 }).then(canvas => {
+  // Создаём canvas с теми же пропорциями, но увеличенной плотностью для качества
+  const scale = 2; // масштаб для высокого качества (можно увеличить, например 3)
+  html2canvas(char, {
+    width: width,
+    height: height,
+    scale: scale, 
+    useCORS: true
+  }).then(canvas => {
     const link = document.createElement("a");
     link.download = "my_outfit.png";
     link.href = canvas.toDataURL("image/png");
     link.click();
-
-    // Восстанавливаем прежние размеры
-    char.style.width = prevWidth;
-    char.style.height = prevHeight;
   });
 }
 
