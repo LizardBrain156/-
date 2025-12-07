@@ -388,13 +388,29 @@ function saveOutfit() {
   const char = document.querySelector(".character");
   if (!char) return;
 
-  // Сохраняем текущие размеры
+  // Определяем, мобильное ли устройство (по ширине)
+  const isMobile = window.innerWidth <= 768;
+
+  // Сохраняем текущие стили, чтобы вернуть потом
   const origWidth = char.style.width;
   const origHeight = char.style.height;
 
-  // Временно ставим «правильные» размеры (например, 360x540)
-  char.style.width = '360px';
-  char.style.height = '540px';
+  let targetWidth, targetHeight;
+
+  if (isMobile) {
+    // Фиксированные пропорции для сохранения на мобилке
+    targetWidth = 360;
+    targetHeight = 540; // или используем своё «идеальное» соотношение
+  } else {
+    // На ПК — реальные размеры блока
+    const rect = char.getBoundingClientRect();
+    targetWidth = rect.width;
+    targetHeight = rect.height;
+  }
+
+  // Временно устанавливаем пиксельные размеры
+  char.style.width = targetWidth + 'px';
+  char.style.height = targetHeight + 'px';
 
   html2canvas(char, { scale: 2, useCORS: true }).then(canvas => {
     const link = document.createElement("a");
@@ -402,7 +418,7 @@ function saveOutfit() {
     link.href = canvas.toDataURL("image/png");
     link.click();
 
-    // Возвращаем размеры обратно
+    // Возвращаем исходные стили
     char.style.width = origWidth;
     char.style.height = origHeight;
   });
