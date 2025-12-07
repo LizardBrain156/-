@@ -397,7 +397,7 @@ function saveOutfit() {
   const rect = char.getBoundingClientRect();
 
   // Рассчитываем масштаб, чтобы сохранить пропорции оригинального макета
-  const originalAspect = 360 / 540; // ширина/высота оригинала (замени, если у тебя другое)
+  const originalAspect = 364 / 494; // ширина/высота оригинала (замени, если у тебя другое)
   let targetWidth = rect.width;
   let targetHeight = rect.height;
 
