@@ -388,18 +388,15 @@ function saveOutfit() {
   const char = document.querySelector(".character");
   if (!char) return;
 
-  // Сохраняем исходные стили
+  // Сохраняем исходные стили, чтобы вернуть после рендера
   const origWidth = char.style.width;
   const origHeight = char.style.height;
   const origMaxWidth = char.style.maxWidth;
 
-  // Определяем «естественную» ширину блока (по макету ПК)
-  // Можно брать текущую ширину экрана или фиксированную для сохранения пропорций
-  const saveWidth = 360; // px, подгоняем под оригинальные пропорции
-
-  // Применяем временные стили для корректного сохранения
-  char.style.width = saveWidth + "px";
-  char.style.height = "auto";        // высота подстраивается по пропорциям
+  // Берём фактический размер блока на экране
+  const rect = char.getBoundingClientRect();
+  char.style.width = rect.width + "px";
+  char.style.height = rect.height + "px";
   char.style.maxWidth = "none";
 
   html2canvas(char, { scale: 2, useCORS: true }).then(canvas => {
