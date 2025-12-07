@@ -388,26 +388,21 @@ function saveOutfit() {
   const char = document.querySelector(".character");
   if (!char) return;
 
-  // Берём реальные размеры изображения персонажа (например, «исходные» для ПК)
-  const targetWidth = 360;  // ширина персонажа в пикселях
-  const targetHeight = 540; // высота персонажа в пикселях
-
-  // Сохраняем текущие стили, чтобы вернуть их потом
+  // Сохраняем текущие размеры
   const origWidth = char.style.width;
   const origHeight = char.style.height;
 
-  // Временно устанавливаем правильные размеры
-  char.style.width = targetWidth + 'px';
-  char.style.height = targetHeight + 'px';
+  // Временно ставим «правильные» размеры (например, 360x540)
+  char.style.width = '360px';
+  char.style.height = '540px';
 
-  // html2canvas с масштабом, чтобы картинка была чёткой
   html2canvas(char, { scale: 2, useCORS: true }).then(canvas => {
     const link = document.createElement("a");
     link.download = "my_outfit.png";
     link.href = canvas.toDataURL("image/png");
     link.click();
 
-    // Возвращаем размеры обратно, чтобы интерфейс не сломался
+    // Возвращаем размеры обратно
     char.style.width = origWidth;
     char.style.height = origHeight;
   });
